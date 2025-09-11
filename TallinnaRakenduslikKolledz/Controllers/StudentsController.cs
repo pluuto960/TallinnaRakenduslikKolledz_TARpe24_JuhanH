@@ -36,5 +36,49 @@ namespace TallinnaRakenduslikKolledz.Controllers
             return View(student);
 
         }
+       
+        
+        
+        /**/
+
+
+        /// <summary>
+        /// Get delete view for student
+        /// </summary>
+        /// <param name="id"> id of student</param>
+        /// <returns></returns>                
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var student = await _context.Students.FirstOrDefaultAsync(m => m.Id == id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var student = await _context.Students.FindAsync(id);
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var student = await _context.Students.FindAsync(id);
+            return View(student);
+        }
     }
 }
