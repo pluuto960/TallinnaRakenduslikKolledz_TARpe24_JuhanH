@@ -11,7 +11,7 @@ namespace TallinnaRakenduslikKolledz.Models
         [Required]
         [StringLength(50)]
         [Display(Name = "Perekonnanimi")]
-        public string Lastname { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(50)]
