@@ -36,7 +36,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Instructor instructor, string selectedCourses)
         {
-            if (selectedCourses == null)
+            if (selectedCourses != null)
             {
                 instructor.CourseAssignments = new List<CourseAssignment>();
                 foreach (var course in selectedCourses)
@@ -49,18 +49,46 @@ namespace TallinnaRakenduslikKolledz.Controllers
                     instructor.CourseAssignments.Add(courseToAdd);
                 }
             }
+            ModelState.Remove("selectedCourses");
             if (ModelState.IsValid)
             {
                 _context.Add(instructor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            PopulateAssignedCourseData(instructor);
+           // PopulateAssignedCourseData(instructor);
             return View(instructor);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError= false)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var deletableInstructor=await _context.Instructors.FirstOrDefaultAsync(s => s.ID ==id);
+            if (deletableInstructor == null) 
+            {
+                return NotFound();
+            }
+            return View(deletableInstructor);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            Instructor deletableInstructor = await _context.Instructors.SingleAsync(i => i.ID == id);
+            _context.Instructors.Remove(deletableInstructor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+
         private void PopulateAssignedCourseData(Instructor instructor)
         {
             var allCourses = _context.Courses; // Leiame kõik kursused
+
             var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(c => c.CourseID));
             // valime kursused kus courseid on õpetajal olemas
             var vm = new List<AssignCourseData>();

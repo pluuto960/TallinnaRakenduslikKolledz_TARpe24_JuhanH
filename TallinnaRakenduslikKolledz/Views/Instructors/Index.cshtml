@@ -13,10 +13,14 @@
 			<th>Perekonnanimi</th>
 			<th>Eesnimi</th>
 			<th>Töölevõtukuupäev</th>
-			<th>Kabinet</th>
 			<th>Palk</th>
-			<th>🎁Boonused</th>
+			
 			<th>Sugu</th>
+			<th>Kontor</th>
+			<th>Kursused</th>
+			<th>🎁Boonused</th>
+			<th>Tööriistad</th>
+	
 		</tr>
 	</thead>
 	<tbody>
@@ -31,6 +35,11 @@
 				<td>@Html.DisplayFor(modelItem => instructor.LastName)</td>
 				<td>@Html.DisplayFor(modelItem => instructor.FirstName)</td>
 				<td>@Html.DisplayFor(modelItem => instructor.HireDate)</td>
+				<td>@Html.DisplayFor(modelItem => instructor.Salary)</td>
+				
+				<td>@Html.DisplayFor(modelItem => instructor.Gender)</td>
+				
+
 				<td>
 					@if (instructor.OfficeAssignment != null)
 					{
@@ -45,9 +54,9 @@
 				</td>
 				<td>@Html.DisplayFor(modelItem => instructor.Bonuses)</td>
 				<td>
-					<a asp-action="Edit" asp-all-route-id="@instructor.ID">Muuda</a>
-					<a asp-action="Details" asp-all-route-id="@instructor.ID">Vaata</a>
-					<a asp-action="Delete" asp-all-route-id="@instructor.ID">Kustuta</a>
+					<a asp-action="Edit" asp-route-id="@instructor.ID">Muuda</a>
+					<a asp-action="Details" asp-route-id="@instructor.ID">Vaata</a>
+					<a asp-action="Delete" asp-route-id="@instructor.ID">Kustuta</a>
 				</td>
 
 
