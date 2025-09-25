@@ -13,6 +13,7 @@ namespace TallinnaRakenduslikKolledz.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignment { get; set; }
+        public DbSet<Department> Departments { get; set; }
         
 
 
@@ -24,6 +25,7 @@ namespace TallinnaRakenduslikKolledz.Data
             modelBuilder.Entity<Instructor>().ToTable("Instructor");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignment");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignment");
+            modelBuilder.Entity<Department>().ToTable("Department");
 
         }
 
