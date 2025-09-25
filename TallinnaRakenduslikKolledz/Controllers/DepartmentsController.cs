@@ -69,5 +69,14 @@ namespace TallinnaRakenduslikKolledz.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            ViewData["Delete"] = "Details";
+            var department = await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentID == id);
+            return View(nameof(Delete), department);
+        }
     }
 }

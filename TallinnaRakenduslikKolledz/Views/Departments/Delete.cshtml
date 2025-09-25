@@ -8,28 +8,59 @@
 	<h3>Kustuta osakond:</h3>
 </p>
 
-<div>
-	<hr />
-	<dl class="row">
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Name)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.Name)</dt>
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.PhoneNumber)</dt>
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Administrator)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.Administrator)</dt>
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Aadress)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.Aadress)</dt>
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Budget)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.Budget)</dt>
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Courses)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.Courses)</dt>
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Email)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.Email)</dt>
-		<dt class="col-sm.2">@Html.DisplayNameFor(model => model.StartDate)</dt>
-		<dt class="col-sm.2">@Html.DisplayFor(model => model.StartDate)</dt>
-	</dl>
-	<form asp-action="Delete">
-		<input type="hidden" asp-for="DepartmentID" />
-		<input type="submit" value="Kustuta" class="btn btn-danger" /> <a asp-action="Index">Tühista</a>
-	</form>
-</div>
+@if (ViewBag.Delete == "Delete")
+{
+	<div>
+		<hr />
+		<dl class="row">
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Name)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Name)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.PhoneNumber)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Administrator)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Administrator)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Aadress)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Aadress)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Budget)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Budget)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Courses)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Courses)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Email)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Email)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.StartDate)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.StartDate)</dt>
+		</dl>
+		<form asp-action="Delete">
+			<input type="hidden" asp-for="DepartmentID" />
+			<input type="submit" value="Kustuta" class="btn btn-danger" /> <a asp-action="Index">Tühista</a>
+		</form>
+	</div>
+}
+
+else if (ViewBag.Delete == "Details")
+{
+	<div>
+		<hr />
+		<dl class="row">
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Name)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Name)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.PhoneNumber)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Administrator)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Administrator)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Aadress)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Aadress)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Budget)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Budget)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Courses)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Courses)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.Email)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.Email)</dt>
+			<dt class="col-sm.2">@Html.DisplayNameFor(model => model.StartDate)</dt>
+			<dt class="col-sm.2">@Html.DisplayFor(model => model.StartDate)</dt>
+		</dl>
+		<form>
+			<a asp-action="Index">Tühista</a>
+		</form>
+	</div>
+}
