@@ -96,9 +96,9 @@ namespace TallinnaRakenduslikKolledz.Controllers
             {
                 vm.Add(new AssignCourseData
                 {
-                    CourseID = course.CourseId,
+                    CourseID = course.ID,
                     Title = course.Title,
-                    Assigned = instructorCourses.Contains(course.CourseId)
+                    Assigned = instructorCourses.Contains(course.ID)
                 });
             }
             ViewData["Courses"] = vm;

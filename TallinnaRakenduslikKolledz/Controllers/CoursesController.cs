@@ -17,7 +17,8 @@ namespace TallinnaRakenduslikKolledz.Controllers
         public IActionResult Index()
         {
             var courses = _context.Courses.Include(c => c.Department)
-                .AsNoTracking();
+                .AsNoTracking()
+                .ToListAsync();
 
             return View();
         }
@@ -25,7 +26,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
         [HttpGet]
         public IActionResult Create() 
         {
-            PopulateDepartmentsDropDownList();
+            //PopulateDepartmentsDropDownList();
             return View();
         }
         [HttpPost]
@@ -49,7 +50,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
             var courses = await _context.Courses
                 .Include(c => c.Department)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.CourseId == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (courses == null)
             {
                 return NotFound();

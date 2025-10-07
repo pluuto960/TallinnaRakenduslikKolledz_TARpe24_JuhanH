@@ -6,25 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TallinnaRakenduslikKolledz.Migrations
 {
     /// <inheritdoc />
-    public partial class dih : Migration
+    public partial class testerman : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Course",
-                columns: table => new
-                {
-                    CourseId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Credits = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Course", x => x.CourseId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Instructor",
                 columns: table => new
@@ -62,6 +48,69 @@ namespace TallinnaRakenduslikKolledz.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Department",
+                columns: table => new
+                {
+                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Budget = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InstructorID = table.Column<int>(type: "int", nullable: true),
+                    RowVersion = table.Column<byte>(type: "tinyint", nullable: true),
+                    Aadress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Department", x => x.DepartmentID);
+                    table.ForeignKey(
+                        name: "FK_Department_Instructor_InstructorID",
+                        column: x => x.InstructorID,
+                        principalTable: "Instructor",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OfficeAssignment",
+                columns: table => new
+                {
+                    InstructorID = table.Column<int>(type: "int", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OfficeAssignment", x => x.InstructorID);
+                    table.ForeignKey(
+                        name: "FK_OfficeAssignment_Instructor_InstructorID",
+                        column: x => x.InstructorID,
+                        principalTable: "Instructor",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Course",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Credits = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Course", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Course_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "DepartmentID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CourseAssignment",
                 columns: table => new
                 {
@@ -77,28 +126,10 @@ namespace TallinnaRakenduslikKolledz.Migrations
                         name: "FK_CourseAssignment_Course_CourseID",
                         column: x => x.CourseID,
                         principalTable: "Course",
-                        principalColumn: "CourseId",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CourseAssignment_Instructor_InstructorID",
-                        column: x => x.InstructorID,
-                        principalTable: "Instructor",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OfficeAssignment",
-                columns: table => new
-                {
-                    InstructorID = table.Column<int>(type: "int", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OfficeAssignment", x => x.InstructorID);
-                    table.ForeignKey(
-                        name: "FK_OfficeAssignment_Instructor_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructor",
                         principalColumn: "ID",
@@ -122,7 +153,7 @@ namespace TallinnaRakenduslikKolledz.Migrations
                         name: "FK_Enrollment_Course_CourseID",
                         column: x => x.CourseID,
                         principalTable: "Course",
-                        principalColumn: "CourseId",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Enrollment_Student_StudentID",
@@ -133,6 +164,11 @@ namespace TallinnaRakenduslikKolledz.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Course_DepartmentId",
+                table: "Course",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CourseAssignment_CourseID",
                 table: "CourseAssignment",
                 column: "CourseID");
@@ -140,6 +176,11 @@ namespace TallinnaRakenduslikKolledz.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CourseAssignment_InstructorID",
                 table: "CourseAssignment",
+                column: "InstructorID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Department_InstructorID",
+                table: "Department",
                 column: "InstructorID");
 
             migrationBuilder.CreateIndex(
@@ -170,6 +211,9 @@ namespace TallinnaRakenduslikKolledz.Migrations
 
             migrationBuilder.DropTable(
                 name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "Department");
 
             migrationBuilder.DropTable(
                 name: "Instructor");

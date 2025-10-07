@@ -49,7 +49,7 @@
 				<td>
 					@foreach (var course in instructor.CourseAssignments)
 					{
-						@course.Course.CourseId @: @course.Course.Title <br/>
+						@course.Course.ID @: @course.Course.Title <br/>
 					}
 				</td>
 				<td>@Html.DisplayFor(modelItem => instructor.Bonuses)</td>

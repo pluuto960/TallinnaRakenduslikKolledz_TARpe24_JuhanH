@@ -1,4 +1,5 @@
-﻿@model TallinnaRakenduslikKolledz.Models.Course
+﻿
+@model TallinnaRakenduslikKolledz.Models.Course
 @{
 	ViewData["Title"] = "Uus kursus";
 }
@@ -10,9 +11,9 @@
 		<form asp-action="Create">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div>
-				<label asp-for="CourseId" class="control-label"></label>
-				<input asp-for="CourseId" class="form-control"></input>
-				<span asp-validation-for="CourseId" class="text-danger"></span>
+				<label asp-for="ID" class="control-label"></label>
+				<input asp-for="ID" class="form-control"></input>
+				<span asp-validation-for="ID" class="text-danger"></span>
 			</div>
 			<div>
 				<label asp-for="Title" class="control-label"></label>

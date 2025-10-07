@@ -12,7 +12,7 @@
 <table class="table">
 	<thead>
 		<tr>
-			<th> @Html.DisplayNameFor(model=> model.CourseId)</th>
+			<th> @Html.DisplayNameFor(model=> model.ID)</th>
 			<th> @Html.DisplayNameFor(model=> model.Title)</th>
 			<th> @Html.DisplayNameFor(model=> model.Credits)</th>
 			<th> @Html.DisplayNameFor(model=> model.Department.Name)</th>
@@ -22,12 +22,12 @@
 	</thead>
 
 	<tbody>
-		if (Model==null)
+		@if (Model != null)
 		{
-		@foreach (var course in Model)
+		foreach (var course in Model)
 		{
 			<tr>
-				@Html.DisplayFor(modelItem => course.CourseId)
+				@Html.DisplayFor(modelItem => course.ID)
 			</tr>
 			<tr>
 				@Html.DisplayFor(modelItem => course.Title)
@@ -42,9 +42,9 @@
 				@Html.DisplayFor(modelItem => course.Department.Administrator.FullName)
 			</tr>
 			<tr>
-				<a asp-action="Delete" asp-route-id="@course.CourseId">Kustuta </a>
+				<a asp-action="Delete" asp-route-id="@course.ID">Kustuta </a>
 			</tr>
-		}
+		}}
 	</tbody>
 	}
 </table>
