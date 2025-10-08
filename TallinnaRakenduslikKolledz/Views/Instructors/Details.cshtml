@@ -1,0 +1,45 @@
+﻿@model TallinnaRakenduslikKolledz.Models.Instructor
+
+@{
+	ViewData["Title"] = "Vaata Õpetajat";
+}
+<h1>
+	Vaata Õpetajat
+</h1>
+<div>
+	<h4>
+		Õpetaja @Model.FirstName @Model.LastName
+	</h4>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.LastName)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(Model => Model.LastName)</dd>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.FirstName)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.FirstName)</dt>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.CourseAssignments)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.CourseAssignments)</dt>
+	</dl>
+	<dl>
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Salary)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.Salary)</dt>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.HireDate)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.HireDate)</dt>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Bonuses)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.Bonuses)</dt>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Gender)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.Gender)</dt>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.OfficeAssignment)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.OfficeAssignment)</dt>
+	</dl>
+</div>
