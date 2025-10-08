@@ -22,6 +22,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewData["Vaatetüüp"] = "Create";
             ViewData["InstructorID"] = new SelectList(_context.Instructors, "Id", "FullName");
             ViewData["CourseStatus"] = new SelectList(_context.Students, "Id", "Lastname", "InstructorName");
             return View();
@@ -31,6 +32,8 @@ namespace TallinnaRakenduslikKolledz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name, Budget, StartDate,RowVersion,InstructorID,DepartmentStatus,Email,PhoneNumber, Aadress")]Department department)
         {
+
+
             if (ModelState.IsValid) 
             {
                 _context.Add(department);
@@ -74,9 +77,29 @@ namespace TallinnaRakenduslikKolledz.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            ViewData["Delete"] = "Details";
-            var department = await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentID == id);
+            ViewData["Vaatetüüp"] = "Details";
+            var department = await _context.Departments.FindAsync(id);
             return View(nameof(Delete), department);
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            ViewData["Vaatetüüp"] = "Edit";
+            var department = await _context.Departments.FindAsync(id);
+            return View("Create");
+        }
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> Edit([Bind("Name, Budget, StartDate,RowVersion,InstructorID,DepartmentStatus,Email,PhoneNumber, Aadress")] Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Departments.Update(department);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(nameof(Create), department);
+
         }
     }
 }
