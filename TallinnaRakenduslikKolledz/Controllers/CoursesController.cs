@@ -22,20 +22,24 @@ namespace TallinnaRakenduslikKolledz.Controllers
 
             return View();
         }
-        /* create GET*/
         [HttpGet]
         public IActionResult Create() 
         {
-            //PopulateDepartmentsDropDownList();
+            ViewData["Vaatetüüp"] = "Create";
+            PopulateDepartmentsDropDownList();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Course course)
         {
-            _context.Add(course);
-            await _context.SaveChangesAsync();
-            PopulateDepartmentsDropDownList(course.DepartmentId);
+            if (ModelState.IsValid)
+            {
+                _context.Add(course);
+                await _context.SaveChangesAsync();
+                //PopulateDepartmentsDropDownList(course.DepartmentId);
+            }
+            ViewData["Vaatetüüp"] = "Create";
             return RedirectToAction("Index");
 
         }
@@ -47,6 +51,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
             {
                 return NotFound();
             }
+            ViewData["Vaatetüüp"] = "Delete";
             var courses = await _context.Courses
                 .Include(c => c.Department)
                 .AsNoTracking()
@@ -61,10 +66,12 @@ namespace TallinnaRakenduslikKolledz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewData["Vaatetüüp"] = "Delete";
             if (_context.Courses == null)
             {
                 return NotFound();
             }
+            
             var course = await _context.Courses.FindAsync(id);
             if (course != null)
             {
@@ -74,6 +81,42 @@ namespace TallinnaRakenduslikKolledz.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            ViewData["Vaatetüüp"] = "Details";
+            var course = await _context.Courses.FindAsync(id);
+            return View(nameof(Details), course);
+        }
+        private void PopulateDepartmentDropDownList(object selectedDepartment = null)
+        {
+            var departmentsQuery = from d in _context.Departments
+                                   orderby d.Name
+                                   select d;
+            ViewBag.DepartmentID = new SelectList(departmentsQuery.AsNoTracking(), "DepartmentID", "Name", selectedDepartment);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            ViewData["Vaatetüüp"] = "Edit";
+            var course = await _context.Courses.FindAsync(id);
+            return View("Create", course);
+
+        }
+
+        [HttpPost, ActionName("EditConfirmed")]
+        public async Task<IActionResult> Edit([Bind("Title, Credits, Department,")] Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Courses.Update(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            ViewData["Vaatetüüp"] = "Edit";
+            return View(nameof(Create), course);
+        }
 
 
         private void PopulateDepartmentsDropDownList(object selectedDepartment= null)
