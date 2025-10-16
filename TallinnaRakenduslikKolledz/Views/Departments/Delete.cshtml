@@ -1,15 +1,16 @@
 ﻿@model TallinnaRakenduslikKolledz.Models.Department
 @{
 	ViewData["Title"] = "Kustuta osakond";
-}
-<h2>@Html.DisplayFor(modelItem => Model.Name)</h2>
-
-<p>
-	<h3>Kustuta osakond:</h3>
-</p>
+	}
 
 @if (ViewBag.Delete == "Delete")
 {
+
+	<h2>@Html.DisplayFor(modelItem => Model.Name)</h2>
+
+	<p>
+		<h3>Kustuta osakond:</h3>
+	</p>
 	<div>
 		<hr />
 		<dl class="row">
@@ -32,6 +33,7 @@
 		</dl>
 		<form asp-action="Delete">
 			<input type="hidden" asp-for="DepartmentID" />
+			<input type="hidden" asp-for="RowVersion" />
 			<input type="submit" value="Kustuta" class="btn btn-danger" /> <a asp-action="Index">Tühista</a>
 		</form>
 	</div>

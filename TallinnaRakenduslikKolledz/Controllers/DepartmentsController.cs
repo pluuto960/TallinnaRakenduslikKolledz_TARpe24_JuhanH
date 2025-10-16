@@ -57,6 +57,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
             {
                 return NotFound();
             }
+            ViewData["Delete"] = "Delete";
             return View(department);
         }
 
@@ -77,7 +78,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            ViewData["Vaatetüüp"] = "Details";
+            ViewData["Delete"] = "Details";
             var department = await _context.Departments.FindAsync(id);
             return View(nameof(Delete), department);
 
@@ -87,7 +88,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
         {
             ViewData["Vaatetüüp"] = "Edit";
             var department = await _context.Departments.FindAsync(id);
-            return View("Create");
+            return View(nameof(Create), department);
         }
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> Edit([Bind("Name, Budget, StartDate,RowVersion,InstructorID,DepartmentStatus,Email,PhoneNumber, Aadress")] Department department)
