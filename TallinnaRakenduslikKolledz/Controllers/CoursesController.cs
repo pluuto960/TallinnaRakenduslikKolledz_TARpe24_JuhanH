@@ -105,17 +105,25 @@ namespace TallinnaRakenduslikKolledz.Controllers
         }
 
         [HttpPost, ActionName("EditConfirmed")]
-        public async Task<IActionResult> Edit([Bind("Title, Credits, Department,")] Course course)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("ID,Title,Credits,DepartmentId")] Course course)
         {
             if (ModelState.IsValid)
             {
-                _context.Courses.Update(course);
+                var existingCourse = await _context.Courses.FindAsync(course.ID);
+                if (existingCourse == null)
+                    return NotFound();
+
+                existingCourse.Title = course.Title;
+                existingCourse.Credits = course.Credits;
+                existingCourse.DepartmentId = course.DepartmentId;
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-
             }
             ViewData["Vaatetüüp"] = "Edit";
-            return View(nameof(Create), course);
+            PopulateDepartmentsDropDownList(course.DepartmentId);
+            return View("Create", course);
         }
 
 
