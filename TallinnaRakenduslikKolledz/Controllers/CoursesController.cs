@@ -60,7 +60,7 @@ namespace TallinnaRakenduslikKolledz.Controllers
             {
                 return NotFound();
             }
-            return View(courses);
+            return View("Details",courses);
          }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
