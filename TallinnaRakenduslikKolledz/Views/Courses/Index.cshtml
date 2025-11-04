@@ -27,22 +27,24 @@
 		foreach (var course in Model)
 		{
 			<tr>
-				@Html.DisplayFor(modelItem => course.ID)
-			</tr>
-			<tr>
-				@Html.DisplayFor(modelItem => course.Title)
-			</tr>
-			<tr>
-				@Html.DisplayFor(modelItem => course.Credits)
-			</tr>
-			<tr>
-				@Html.DisplayFor(modelItem => course.Department.Name)
-			</tr>
-			<tr>
-				@Html.DisplayFor(modelItem => course.Department.Administrator.FullName)
-			</tr>
-			<tr>
-				<a asp-action="Delete" asp-route-id="@course.ID">Kustuta </a>
+				<td>
+					@Html.DisplayFor(modelItem => course.ID)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => course.Title)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => course.Credits)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => course.Department.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => course.Department.Administrator.FullName)
+				</td>
+				<td>
+					<a asp-action="Delete" asp-route-id="@course.ID">Kustuta </a>
+				</td>
 			</tr>
 		}}
 	</tbody>

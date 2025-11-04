@@ -18,15 +18,15 @@ namespace TallinnaRakenduslikKolledz.Controllers
         {
             var courses = _context.Courses.Include(c => c.Department)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToArray();
 
-            return View();
+            return View(courses);
         }
         [HttpGet]
         public IActionResult Create() 
         {
             ViewData["Vaatetüüp"] = "Create";
-            PopulateDepartmentsDropDownList();
+            //PopulateDepartmentsDropDownList();
             return View();
         }
         [HttpPost]
